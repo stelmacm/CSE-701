@@ -11,7 +11,7 @@ Regression is used for a multitude of things and is one of the most important th
 ## Implementation
 
 ### Libraries 
-For this program a multitude of libraries were used, including <ctime>, to time the length of the program, <random> to randomly generate data, <algorithm> to use functions such as 'swap', <fstream> to read in data and a few others for various purposes.
+For this program a multitude of libraries were used, including ctime, to time the length of the program, random to randomly generate data, algorithm to use functions such as 'swap', fstream to read in data and a few others for various purposes.
   
 ``` cpp
 
