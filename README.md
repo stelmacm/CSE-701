@@ -85,3 +85,47 @@ matrix randomize(matrix p)
     return p;
 }
 ```
+
+### Matrix class and its operators
+
+The matrix class is the most important class since it defines matrixies and their respective operators. Since it was created in class there is not neccessarily too much to comment on it other than the additions made to it. Two division operators were added to do division of a scalar into a matrix and to do elementwise division of a matrix respectively. Although it linear algebra matrices are obviously not divided, element wise division will be used in the program.
+
+```cpp
+
+matrix operator/(const matrix &m, const double &n)
+{
+    size_t rows{m.get_rows()};
+    size_t cols{m.get_cols()};
+    matrix w(rows, cols);
+    for (size_t i{0}; i < rows; ++i)
+    {
+        for (size_t j{0}; i < cols; ++j)
+        {
+            w(i, j) = m(i, j) / n;
+        }
+    }
+
+    return w;
+}
+
+matrix operator/(const matrix &m, const matrix &n)
+{
+    size_t rows{m.get_rows()};
+    size_t cols{m.get_cols()};
+    if (rows != n.get_rows() or cols != n.get_cols())
+    {
+        throw matrix::incompatible_sizes_add{};
+    }
+    matrix w(rows, cols);
+    for (size_t i{0}; i < rows; ++i)
+    {
+        for (size_t j{0}; j < cols; ++j)
+        {
+            w(i, j) = m(i, j) / n(i, j);
+        }
+    }
+
+    return w;
+}
+
+```
