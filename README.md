@@ -10,3 +10,78 @@ Regression is used for a multitude of things and is one of the most important th
 
 ## Implementation
 
+### Libraries 
+For this program a multitude of libraries were used, including <ctime>, to time the length of the program, <random> to randomly generate data, <algorithm> to use functions such as 'swap', <fstream> to read in data and a few others for various purposes.
+  
+``` cpp
+
+#include <iostream>
+#include <vector>
+#include <initializer_list>
+#include <random>
+#include <ctime>
+#include <algorithm>
+#include <fstream>
+#include <cassert>
+#include <iomanip>
+
+using namespace std;
+```
+
+### Reading input
+
+Like most regression programs, this program requires data to run! To show that this method of regression is most effective we will be simply randomizing the data based on users request. The user must input two values that will dictate the size of the matrix. This is done by creating a class that reads the file and saves the values. In goal of being object oriented, a 'class read_matsize' was created to use a constructor that reads the inputted txt file and the appropriate member function 'getData()' reads it and stores it as a vector of type double. 
+
+```cpp
+class read_matsize
+{
+    string fileName;
+
+public:
+    read_matsize(string filename) : fileName(filename)
+    {
+    }
+
+    vector<double> getData();
+};
+//Used to read in matrix size for user input
+vector<double> read_matsize::getData()
+{
+    ifstream file(fileName);
+
+    vector<double> matsize;
+    double value;
+
+    while (file >> value)
+    {
+        matsize.push_back(value);
+    }
+    file.close();
+
+    return matsize;
+}
+```
+
+### Randomize the Data
+
+So once the size of the matrix is inputted by the user, the values of the matrix are randomized using the uniform distribution. 
+
+```cpp
+//Create Random values inside a matrix
+matrix randomize(matrix p)
+{
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_int_distribution<int> uid(0, 200); //Sampled from uniform distribution
+
+    size_t rows{p.get_rows()}, col{p.get_cols()};
+    for (size_t i{0}; i < rows; ++i)
+    {
+        for (size_t j{0}; j < col; ++j)
+        {
+            p(i, j) = uid(mt); //Fills every value with a random one
+        }
+    }
+    return p;
+}
+```
