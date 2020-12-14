@@ -147,4 +147,55 @@ Once it is determined the dataset is appropriate, we will compute the initial me
 
 The above is an example of rules needed for standard matrix operations to occur, and such have been added throughout. 
 
+### Matrix operations
+
+As mentioned, with most regression, matrix operations are very prominent and done often. This involved lots of matrix manipulation which made matrix operations much simpler. For example, when we need a matrix to take reduced row echelon form, we were able to use the `swap` function from the C Standard Template Library `<algorithms>`. This man moving functions around much simpler. 
+
+```cpp
+void swap_rows(matrix &m, size_t i, size_t j)
+{
+    size_t columns = m.get_cols();
+    for (size_t column = 0; column < columns; ++column)
+        std::swap(m(i, column), m(j, column));
+}
+```
+Using these libraries effectively made my code more efficient since they did not have to be writen from scratch.
+
+The matrix operations done were the ones needed to solve for the coefficient matrix, similar to ordinary least squares, for ridge regression. This solved to be `Beta^ = (X'X + aI)^-1 X' Y`. Once the coefficients were computed, we needed to find the mean squared error. This is found via the formula `MSE = 1/n e^2 = 1/n e^T * e`. Once we have found an initial MSE to begin with, we can start to determine which direction we will go in. What I mean by this is we have select some point along the convex hull however unsure which direction to go in. For this we will find one step size to the left and one step size to the right and then compare the two. Whichever is lower will dictate the direction we will follow till we have reached the absolute minima. 
+
+```cpp
+if (MSEgreat(0, 0) > MSEless(0, 0))
+            {
+                while (prevMSE(0, 0) > MSEless(0, 0)) // Looking for change of direction
+                {
+                    prevMSE = MSEless;
+                    cout << prevMSE;
+                    lesserk = lesserk - stepsize;
+                    matrix lessererror = finderror(X, Y, lesserk);
+                    matrix MSEless = n * (transpose(lessererror) * lessererror);
+                    cout << MSEless;
+                }
+                cout << "The optimal MSE has been reached by going left :" << MSEless;
+                cout << "The optimal value of lambda is :" << lesserk;
+            }
+            if (MSEgreat(0, 0) < MSEless(0, 0))
+            {
+
+                while (prevMSE(0, 0) > MSEgreat(0, 0)) //Looking till change of direction
+                {
+                    prevMSE = MSEgreat;
+                    greaterk = greaterk + stepsize;
+                    matrix greatererror = finderror(X, Y, greaterk);
+                    matrix MSEgreat = n * (transpose(greatererror) * greatererror);
+                    cout << greaterk;
+                }
+                cout << "The optimal MSE has been reached by going right :" << MSEgreat;
+                cout << "The optimal value of lambda is :" << greaterk;
+            }
+```
+
+This method of gradient descent allows us to find the minima for function and the appropriate lambda.
+All these matrix manipulations are also subject to exceptions that are defined via throw and catch method to catch for and operations that would not be possible.
+
+
 
