@@ -11,7 +11,7 @@ Regression is used for a multitude of things and is one of the most important th
 ## Implementation
 
 ### Libraries 
-For this program a multitude of libraries were used, including ctime, to time the length of the program, random to randomly generate data, algorithm to use functions such as 'swap', fstream to read in data and a few others for various purposes.
+For this program a multitude of libraries were used, including ctime, to time the length of the program, random to randomly generate data, algorithm to use functions such as `swap`, fstream to read in data and a few others for various purposes.
   
 ``` cpp
 
@@ -30,7 +30,7 @@ using namespace std;
 
 ### Reading input and Template
 
-Like most regression programs, this program requires data to run! To show that this method of regression is most effective we will be simply randomizing the data based on users request. The user must input two values that will dictate the size of the matrix. This is done by creating a class that reads the file and saves the values. In goal of being object oriented, a 'class read_matsize' was created to use a constructor that reads the inputted txt file and the appropriate member function `getData()` reads it and stores it as a vector of type double. 
+Like most regression programs, this program requires data to run! To show that this method of regression is most effective we will be simply randomizing the data based on users request. The user must input two values that will dictate the size of the matrix. This is done by creating a class that reads the file and saves the values. In goal of being object oriented, a `class read_matsize` was created to use a constructor that reads the inputted txt file and the appropriate member function `getData()` reads it and stores it as a vector of type double. 
 
 ```cpp
 class read_matsize
