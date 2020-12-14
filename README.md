@@ -197,5 +197,8 @@ if (MSEgreat(0, 0) > MSEless(0, 0))
 This method of gradient descent allows us to find the minima for function and the appropriate lambda.
 All these matrix manipulations are also subject to exceptions that are defined via throw and catch method to catch for and operations that would not be possible.
 
+### Sample outputs
 
+Using the same txt file as attached above, the program was very effective is determining if collinearity existed. The following is a sample output from when the program was executed. 
 
+![Output of program](programoutput.png)
