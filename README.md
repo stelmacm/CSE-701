@@ -202,3 +202,11 @@ All these matrix manipulations are also subject to exceptions that are defined v
 Using the same txt file as attached above, the program was very effective is determining if collinearity existed. The following is a sample output from when the program was executed. 
 
 ![Output of program](programoutput.png)
+
+### Future advancements
+
+Attempted applying templates<T> such that all functions had a defined type but ran into errors that could not be solved before submission date. 
+  
+## Acknowledgements
+
+Special thanks to Professor Barak Shoshany of McMaster University for guidance and aid throughout the project. 
