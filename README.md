@@ -185,7 +185,7 @@ This is in form of double rather than in the `template <typename T>` because the
 
 ## Sample Outputs
 
-![Sample Output of the program](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
+![Sample Output of the program](https://github.com/stelmacm/CSE-701/blob/main/results.png?raw=true)
 
   
 ## Acknowledgements
