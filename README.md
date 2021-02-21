@@ -85,7 +85,7 @@ matrix<T> operator/(const matrix<T> &m, const T &s)
 
 ### Ordinary Least Squares Class
 
-After the matrices are created and normalized, they are then used to find beta^{hat}. This is how we would normally fit data. When performing matrix multiplication, we are always checking for exceptions to see that matrices can be multiplied to one another and transposed. In the class an augmented matrix is created and reduced row echelon is performed, after that the matrix is inverted and we have a matrix of our coefficients. As part of the class, the mean squared error of the prediction of the ordinary least squares was calculated to compare to the Lasso penalization. 
+After the matrices are created and normalized, they are then used to find beta^{hat}. This is how we would normally fit data, B^hat = (X^T * X)^-1 X^T * Y. When performing matrix multiplication, we are always checking for exceptions to see that matrices can be multiplied to one another and transposed. In the class an augmented matrix is created and reduced row echelon is performed, after that the matrix is inverted and we have a matrix of our coefficients. As part of the class, the mean squared error of the prediction of the ordinary least squares was calculated to compare to the Lasso penalization. The mean squared error is found as the sum of squares divided by the number of observations - 1.
 
 ### Coordinate Descent
 
@@ -134,7 +134,7 @@ if (rhop + lambda < 0)
 In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where 
 ![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
 
-After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. The final result is a list of theta's that are the beta estimators of the matrix X. 
+After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. Unfortunately, this operator could not become and inline function since multiplication does not work the same from either side of a matrix. The final result is a list of theta's that are the beta estimators of the matrix X. 
 
 ### Leave One Out Cross Validation
 
@@ -152,7 +152,7 @@ double_t closest(vector<double_t> const &vec, double_t value)
     return *it;
 }
 ```
-This is in form of double rather than in the `template <typename T>` because the result should always return a double format and the MSE would be incorrect if returned as anything else. These values are stored in a vector and incremented with `.pushback()`. Because the same values will always be in the same place, it will become very easy for us to reference those values and call upon them. 
+This is in form of double rather than in the `template <typename T>` because the result should always return a double format and the MSE would be incorrect if returned as anything else. These values are stored in a vector and incremented with `.pushback()`. Because the same values will always be in the same place, it will become very easy for us to reference those values and call upon them. Although there was no original way to output a whole vector, it was done easily by creating a `cout` operator.
 
 ## Sample Outputs
   
