@@ -134,7 +134,36 @@ if (rhop + lambda < 0)
 In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where 
 ![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
 
-After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. Unfortunately, this operator could not become and inline function since multiplication does not work the same from either side of a matrix. The final result is a list of theta's that are the beta estimators of the matrix X. 
+After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. Unfortunately, this operator could not become and inline function since multiplication does not work the same from either side of a matrix. The final result is a list of theta's that are the beta estimators of the matrix X. The following is an implementation of the algorithm:
+
+```cpp
+  for (size_t i = 0; i < iterations; i++)
+    {
+        //For every column of the matrix (aka every predictor)
+        for (size_t j = 0; j < columns; j++)
+        {
+            //Create column matrix
+            matrix<double_t> X_j(rows, 1);
+
+            //Need just the column j
+            for (size_t m = 0; m < rows; m++)
+            {
+                X_j(m, 0) = X(m, j);
+            }
+
+            matrix<double_t> y_pred = X * thetas;
+
+            matrix<double_t> X_jT(X_j.get_cols(), X_j.get_rows());
+            for (size_t r{0}; r < X_j.get_rows(); ++r)
+            {
+                for (size_t c{0}; c < X_j.get_cols(); ++c)
+                {
+                    X_jT(c, r) = X_j(r, c); //Swaps all rows and columns
+                }
+            }
+            //Calculate rho
+            matrix<double_t> rho = X_jT * (Y - y_pred + thetas[j] * X_j);
+```
 
 ### Leave One Out Cross Validation
 
