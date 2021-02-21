@@ -1,8 +1,8 @@
-# Finding optimal penalization parameter lambda for ridge regression - Martin Stelmach - December 13, 2020
+# Finding optimal penalization parameter lambda for Lasso Regression using Coordinate Descent - Martin Stelmach - December 13, 2020
 
 ## Summary of Project
 
-The goal of the program created is to take user input regarding the size of the data, check if the data is multicollinear by checking the variance inflation factor, and if it is, using gradient descent to find the optimal value of lambda that minimizes the mean squared error and hence finds the optimal penalization parameter.
+The goal of the program created is to take user find the optimal value of lambda for which we do penalized regression. This is done by taking a user defined randomly generated dataset and doing coordinate descent along log-spaced lambda values until the penalization has been performed. From there the optimal lambda is selected via cross validation and the penalized mean squared error is compared to the standard OLS proving that the lasso is a better fit but avoids overfitting, as we will further see. It is worth mentioning that lasso optimization is not a closed form solution so a forward stagewise algorithm is implemented. 
 
 ## Explanation of Algorithm
 
