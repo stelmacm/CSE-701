@@ -83,9 +83,55 @@ matrix<T> operator/(const matrix<T> &m, const T &s)
 }
 ```
 
-### Ordinary Least Squares
+### Ordinary Least Squares Class
 
-After the matrices are created 
+After the matrices are created and normalized, they are then used to find $\beta^{hat}$. This is how we would normally fit data. When performing matrix multiplication, we are always checking for exceptions to see that matrices can be multiplied to one another and transposed. In the class an augmented matrix is created and reduced row echelon is performed, after that the matrix is inverted and we have a matrix of our coefficients. As part of the class, the mean squared error of the prediction of the ordinary least squares was calculated to compare to the Lasso penalization. 
+
+### Coordinate Descent
+
+The coordinate descent begins by creating a list of lambda's. This list is created from a log spaced generated list. The list's start, end and size are hard coded since there is not particularly a need to specify these before hand, as creating to long a list can lead to aggresive overfitting. The following class defines the values in the list of these inputted values. This list is then created using the `generate_n` function from `<algorithms>` standard library. This ensures we are testing a good proportion of lambda values without testing too many that are very similar. 
+
+```cpp
+
+template <typename T>
+class Logspace
+{
+public:
+    Logspace(T first, T last, int num, T base = 10.0) : curValue(first), base(base)
+    {
+        step = (last - first) / (num - 1);
+    }
+
+    T operator()()
+    {
+        T retval = pow(base, curValue);
+        curValue += step;
+        return retval;
+    }
+
+private:
+    T curValue, base, step;
+};
+```
+
+From there, the program tests every lambda in the list, we cycle through all the features one at a time, minimizing the cost function with respect to the coordinate. Lasso regression does not have a closed form solution as it becomes a single variable problem so the solution is defined in terms of a soft threshold which is as follows:
+
+```cpp
+if (rhop + lambda < 0)
+            {
+                rl = rhop + lambda;
+            }
+            if (rhop - lambda > 0)
+            {
+                rl = rhop - lambda;
+            }
+            else
+            {
+                rl = 0;
+            }
+```
+
+In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where rho
   
 ## Acknowledgements
 
