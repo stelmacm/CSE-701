@@ -2,7 +2,7 @@
 
 ## Summary of Project
 
-The goal of the program created is to take user find the optimal value of lambda for which we do penalized regression. This is done by taking a user defined randomly generated dataset and doing coordinate descent along log-spaced lambda values until the penalization has been performed. From there the optimal lambda is selected via cross validation and the penalized mean squared error is compared to the standard OLS proving that the lasso is a better fit but avoids overfitting, as we will further see. It is worth mentioning that lasso optimization is not a closed form solution so a forward stagewise algorithm is implemented. The program does not work for long matrices (ones with rows > cols) and rightfully so rejects any input that contradicts this inequality with an exception. Due to the data being random, often times the optimal lambda will be the lowest one however that is not always the case. 
+The goal of the program created is to create randomized data from user input to find the optimal value of lambda for which we do penalized regression. This is done by taking a user defined randomly generated dataset and doing coordinate descent along log-spaced lambda values until the penalization has been performed. From there the optimal lambda is selected via cross validation and the penalized mean squared error is compared to the standard OLS proving that the lasso is a better fit but avoids overfitting, as we will further see. It is worth mentioning that lasso optimization is not a closed form solution however the optimization remains. The program does not work for long matrices (ones with rows > cols) and rightfully so rejects any input that contradicts this inequality with an exception. Due to the data being random, often times the optimal lambda will be the lowest one however that is not always the case. 
 
 ## Explanation of Algorithm
 
@@ -187,6 +187,7 @@ This is in form of double rather than in the `template <typename T>` because the
 
 ![Sample Output of the program](https://github.com/stelmacm/CSE-701/blob/main/results.png?raw=true)
 
+As we can see from the sample output, the smallest MSE occurs with some form of penalization. Once we take one standard deviation of the cross validated mean squared errors, we see the difference in mean squared errors is not that large. Typically change in smaller lambda's will have a greater impact on MSE rather than changes in larger lambda's. This is evident in our example as we see the change in lambda to be a bit significant.
   
 ## Acknowledgements
 
