@@ -6,7 +6,7 @@ The goal of the program created is to take user find the optimal value of lambda
 
 ## Explanation of Algorithm
 
-Regression is one of the most important tools in statistics. Often times, we fit data using a simple least squares approximation, however, this is not always sufficient. As data becomes larger and we have more predictors, we start to encounter more variance in our estimates for $$\beta$$. To avoid this, we apply a penalization parameter which regularizes the coefficients and reduces variance. By implementing L1 penalization, we are ensuring our coefficients do not blow up and get really big. Once we have done the coordinate descent with the lambda in question, we use the one standard rule for model selection. This means that the optimal lambda is selected one standard deviation from the optimal that is found via cross validation. This is because the optimal lambda in cross validation can often times be an overfit and result in certain estimators being very close to zero but not zero, and shifting by a standard deviation would "push" those over.
+Regression is one of the most important tools in statistics. Often times, we fit data using a simple least squares approximation, however, this is not always sufficient. As data becomes larger and we have more predictors, we start to encounter more variance in our estimates for beta. To avoid this, we apply a penalization parameter which regularizes the coefficients and reduces variance. By implementing L1 penalization, we are ensuring our coefficients do not blow up and get really big. Once we have done the coordinate descent with the lambda in question, we use the one standard rule for model selection. This means that the optimal lambda is selected one standard deviation from the optimal that is found via cross validation. This is because the optimal lambda in cross validation can often times be an overfit and result in certain estimators being very close to zero but not zero, and shifting by a standard deviation would "push" those over.
 
 ## Implementation
 
@@ -85,7 +85,7 @@ matrix<T> operator/(const matrix<T> &m, const T &s)
 
 ### Ordinary Least Squares Class
 
-After the matrices are created and normalized, they are then used to find $\beta^{hat}$. This is how we would normally fit data. When performing matrix multiplication, we are always checking for exceptions to see that matrices can be multiplied to one another and transposed. In the class an augmented matrix is created and reduced row echelon is performed, after that the matrix is inverted and we have a matrix of our coefficients. As part of the class, the mean squared error of the prediction of the ordinary least squares was calculated to compare to the Lasso penalization. 
+After the matrices are created and normalized, they are then used to find beta^{hat}. This is how we would normally fit data. When performing matrix multiplication, we are always checking for exceptions to see that matrices can be multiplied to one another and transposed. In the class an augmented matrix is created and reduced row echelon is performed, after that the matrix is inverted and we have a matrix of our coefficients. As part of the class, the mean squared error of the prediction of the ordinary least squares was calculated to compare to the Lasso penalization. 
 
 ### Coordinate Descent
 
@@ -134,7 +134,7 @@ if (rhop + lambda < 0)
 In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where 
 ![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
 
-After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. The final result is a list of theta's that are the $\beta$ estimators of the matrix X. 
+After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. The final result is a list of theta's that are the beta estimators of the matrix X. 
 
 ### Leave One Out Cross Validation
 
@@ -153,6 +153,8 @@ double_t closest(vector<double_t> const &vec, double_t value)
 }
 ```
 This is in form of double rather than in the `template <typename T>` because the result should always return a double format and the MSE would be incorrect if returned as anything else. These values are stored in a vector and incremented with `.pushback()`. Because the same values will always be in the same place, it will become very easy for us to reference those values and call upon them. 
+
+## Sample Outputs
   
 ## Acknowledgements
 
