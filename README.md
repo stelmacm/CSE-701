@@ -1,4 +1,4 @@
-# Finding optimal penalization parameter lambda for Lasso Regression using Coordinate Descent - Martin Stelmach - December 13, 2020
+# Finding optimal penalization parameter lambda for Lasso Regression using Coordinate Descent - Martin Stelmach - February 21, 2021
 
 ## Summary of Project
 
@@ -6,7 +6,7 @@ The goal of the program created is to take user find the optimal value of lambda
 
 ## Explanation of Algorithm
 
-Regression is used for a multitude of things and is one of the most important things in todays world. For this reason there are so many different things one can do with regression to try and fit data better. One of those things is ridge regression. Ridge regression is used for data has lots of multicollinearity and there for is harder to predict. Typical dataset that ridge regression is used for is datasets that contain more factors than observations, making it difficult to interpret which are more important and should have higher coefficients. The use of ridge regression on such a multicollinear dataset is effective because ridge regression implements bias into the data. What happens is a shrinkage estimator is assigned to each coefficent to differentiate the more important coefficients. This is essentially a form of penalization to factors that should have less of a weight to the regression. The penalization parameter gives us a new equation for regression coefficients in the form of `B = (X'X + aI)^-1 X' Y`. The tricky part of ridge regression is selecting an appropriate alpha value. There is no definitive formula for solving for this parameter. Instead what is done is several values of alpha are computed and compared for goodness of fit by seeing which value minimizes the mean squared error. This essentially guessing and checking so the value is not necessarily precise nor the most accurate. We should recognize that the function of mean square error is convex for values of alpha. Knowing this, we are able to identify that there is an absolute minima which can be found. What happens is an alpha is selected originally and the respective mean squared error is computed. From there, the mean squared error of an alpha to the left and the right, by a defined stepsize, of the original alpha is computed. The one that is lower indicates which direction alpha should continue to head in that direction. This occurs while the mean sqaure error is decreasing; once it begins to increase again, the minima has occured. 
+Regression is used for a multitude of things and is one of the most important things in todays world. For this reason there are so many different things one can do with regression to try and fit data better. 
 
 ## Implementation
 
@@ -28,9 +28,9 @@ For this program a multitude of libraries were used, including ctime, to time th
 using namespace std;
 ```
 
-### Reading input and Template
+### Reading input
 
-Like most regression programs, this program requires data to run! To show that this method of regression is most effective we will be simply randomizing the data based on users request. The user must input two values that will dictate the size of the matrix. This is done by creating a class that reads the file and saves the values. In goal of being object oriented, a `class read_matsize` was created to use a constructor that reads the inputted txt file and the appropriate member function `getData()` reads it and stores it as a vector of type double. 
+The program begins with reading the text file in the document to create the matrix size in order the generate the date. This is done in a class that reads each individual character in the file and stores it as a vector that can be easily accessed. 
 
 ```cpp
 class read_matsize
