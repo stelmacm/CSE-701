@@ -184,6 +184,9 @@ double_t closest(vector<double_t> const &vec, double_t value)
 This is in form of double rather than in the `template <typename T>` because the result should always return a double format and the MSE would be incorrect if returned as anything else. These values are stored in a vector and incremented with `.pushback()`. Because the same values will always be in the same place, it will become very easy for us to reference those values and call upon them. Although there was no original way to output a whole vector, it was done easily by creating a `cout` operator.
 
 ## Sample Outputs
+
+![Sample Output of the program](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
+
   
 ## Acknowledgements
 
