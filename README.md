@@ -190,4 +190,4 @@ This is in form of double rather than in the `template <typename T>` because the
   
 ## Acknowledgements
 
-Special thanks to Professor Barak Shoshany of McMaster University for guidance and aid throughout the project. 
+Special thanks to Professor Barak Shoshany and Dr. Benjamin Bolker of McMaster University for guidance and aid throughout the project.
