@@ -6,7 +6,7 @@ The goal of the program created is to create randomized data from user input to 
 
 ## Explanation of Algorithm
 
-Regression is one of the most important tools in statistics. Often times, we fit data using a simple least squares approximation, however, this is not always sufficient. As data becomes larger and we have more predictors, we start to encounter more variance in our estimates for beta. To avoid this, we apply a penalization parameter which regularizes the coefficients and reduces variance. By implementing L1 penalization, we are ensuring our coefficients do not blow up and get really big. Once we have done the coordinate descent with the lambda in question, we use the one standard rule for model selection. This means that the optimal lambda is selected one standard deviation from the optimal that is found via cross validation. This is because the optimal lambda in cross validation can often times be an overfit and result in certain estimators being very close to zero but not zero, and shifting by a standard deviation would "push" those over.
+Regression is one of the most important tools in statistics. Often times, we fit data using a simple least squares approximation, however, this is not always sufficient. As data becomes larger and we have more predictors, we start to encounter more variance in our estimates for beta. To avoid this, we apply a penalization parameter which regularizes the coefficients and reduces variance. By implementing L1 penalization, we are ensuring our coefficients do not blow up and get really big. Once we have done the coordinate descent with the lambda in question, we use cross validation and the one standard rule for model selection. This means that the optimal lambda is selected one standard deviation from the optimal that is found via cross validation. This is because the optimal lambda in cross validation can often times be an overfit and result in certain estimators being very close to zero but not zero, and shifting by a standard deviation would "push" those over.
 
 ## Implementation
 
@@ -69,7 +69,7 @@ Using the `random` library, the program is able to generate random values that w
 
 ### Normalization
 
-After the data is randomly generated, it is beneficial for Lasso that the data is normalized. In order to do this, a division operator had to be created. This allowed us to divide every individual component of the matrix by a given scalar. This normalization is what helps the program run more effectively. 
+After the data is randomly generated, it is beneficial for Lasso that the data is normalized. In order to do this, a division operator had to be created. This allowed us to divide every individual component of the matrix by a given scalar. This normalization is what helps the program run more effectively. The common thing to do, and recommended by Tibshirani in his algorithm, is to normalize the data in question.
 
 ``` cpp
 template <typename T>
@@ -187,8 +187,20 @@ This is in form of double rather than in the `template <typename T>` because the
 
 ![Sample Output of the program](https://github.com/stelmacm/CSE-701/blob/main/results.png?raw=true)
 
-As we can see from the sample output, the smallest MSE occurs with some form of penalization. Once we take one standard deviation of the cross validated mean squared errors, we see the difference in mean squared errors is not that large. Typically change in smaller lambda's will have a greater impact on MSE rather than changes in larger lambda's. This is evident in our example as we see the change in lambda to be a bit significant.
+As we can see from the sample output, the smallest MSE occurs with some form of penalization. Once we take one standard deviation of the cross validated mean squared errors, we see the difference in mean squared errors is not that large. Typically change in smaller lambda's will have a greater impact on MSE rather than changes in larger lambda's. This is evident in our example as we see the change in lambda to be a bit significant, but this does guarentee that we are not overfitting
   
 ## Acknowledgements
 
 Special thanks to Professor Barak Shoshany and Dr. Benjamin Bolker of McMaster University for guidance and aid throughout the project.
+
+## References
+
+Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer Series in Statistics.
+
+Friedman, J., Hastie, T., H ¨ofling, H., and Tibshirani, R. (2007). Pathwise coordinate optimization. Annals of Applied Statistics, 1(2), 302–332.
+
+Tibshirani, R. (1996). Regularized shrinkage and selection via the lasso. Journal of the Royal Statistical Society B, 58(1), 267–288.
+
+Tibshirani, R., Saunders, M., Rosset, S., Zhu, J., and Knight, K. (2005). Sparsity and smoothness via the fused lasso. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 67(1), 91–108
+
+Tibshirani, R. J. (2013). The lasso problem and uniqueness. Electronic Journal of Statistics, 7, 1456–1490.
