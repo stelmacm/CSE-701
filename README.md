@@ -132,7 +132,7 @@ if (rhop + lambda < 0)
 ```
 
 In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where rho
-![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.pngraw=true)
+![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
 
   
 ## Acknowledgements
