@@ -114,7 +114,7 @@ private:
 };
 ```
 
-From there, the program tests every lambda in the list, we cycle through all the features one at a time, minimizing the cost function with respect to the coordinate. Lasso regression does not have a closed form solution as it becomes a single variable problem so the solution is defined in terms of a soft threshold which is as follows:
+From there, the program tests every lambda in the list, we cycle through all the features one at a time, minimizing the cost function with respect to the coordinate. Lasso regression does not have a closed form solution as it becomes a single variable problem so the solution is defined in terms of a soft threshold, S(), which is as follows:
 
 ```cpp
 if (rhop + lambda < 0)
@@ -131,9 +131,28 @@ if (rhop + lambda < 0)
             }
 ```
 
-In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where rho
+In the scenario where rho + lambda > 0, then the estimator remains unchanged. The coordinate descent update rule is defined as follows. For every j = 0, 1, ... n , we compute rho where 
 ![Rho equation](https://github.com/stelmacm/CSE-701/blob/main/rho%20equation.png?raw=true)
 
+After this we set theta_j = S(rho_j , lambda). This allows us perform step wise coordinate descent for every column or arguement of X. What is interesting about this is that theta is a vector, so the multiplication operator had to be adjusted and created to allow for matrix and vector compatible multiplication. The final result is a list of theta's that are the $\beta$ estimators of the matrix X. 
+
+### Leave One Out Cross Validation
+
+To determine which of the lambda's best fit the model, we perform cross validation on all the estimators in order to determine which will result in the lowest mean squared error or in this case penalized mean squared error. We begin by creating a test set which can be easily done since our data is randomly generated. Once a training and test sets have been assigned, we compute the mean squared error of each Beta estimator and compare them. We identify the one that has the lowest mean squared error. Tibeshirani, a world famous data scientist who invented Lasso, states that the lowest mean squared error is infact an overfit of lasso regression and that the correct lambda associated with the mean squared error that is one standard deviation away from the original. In order to do this, we need to compute the standard deviation of the mean squared errors from the cross validation and find the one that is closest to the CV(theta) + SD(theta). This is done using a function created in order to find the closest value to that of the one in question 
+```cpp
+
+double_t closest(vector<double_t> const &vec, double_t value)
+{
+    auto const it = lower_bound(vec.begin(), vec.end(), value);
+    if (it == vec.end())
+    {
+        return -1;
+    }
+
+    return *it;
+}
+```
+This is in form of double rather than in the `template <typename T>` because the result should always return a double format and the MSE would be incorrect if returned as anything else. These values are stored in a vector and incremented with `.pushback()`. Because the same values will always be in the same place, it will become very easy for us to reference those values and call upon them. 
   
 ## Acknowledgements
 
